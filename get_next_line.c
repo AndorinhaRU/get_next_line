@@ -6,7 +6,7 @@
 /*   By: astolbov <astolbov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:45:17 by astolbov          #+#    #+#             */
-/*   Updated: 2024/08/07 13:55:43 by astolbov         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:29:46 by astolbov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ char	*reader(int fd, char *backup)
 		}
 		buf[read_line] = '\0';
 		backup = ft_strjoin(backup, buf);
+		if (!backup)
+		{
+			free(buf);
+			return (NULL);
+		}
 	}
 	free(buf);
 	return (backup);
@@ -47,6 +52,8 @@ char	*get_next_line(int fd)
 	if (!backup)
 		return (NULL);
 	line = ft_get_line(backup);
+	if (!line)
+		return (NULL);
 	backup = ft_new_backup(backup);
 	return (line);
 }
